@@ -3,11 +3,11 @@ from scipy.stats import multivariate_normal
 
 
 
-
-
 if __name__ == "__main__":
-
-    k = 3 # Number of observables in T
+    ## Just copied and pasted from Ethan's
+    N = 1000
+    k = 3 # Columns of Y
+   
 
     mu = [0]*k
     Sigma=[[1,0.5,0],

@@ -2,7 +2,7 @@
 All package dependencies live in the requrirements.txt file. To utilize this file effectively, follow the instructions below
 
 
-1. create your own virtual environment (I use venv, but you can use whatever)
+1. create your own virtual environment (I personally prefer venv to conda or other options, but you can use whatever)
 2. activate your virtual environment
 3. load the requirements.txt file 
 ```
