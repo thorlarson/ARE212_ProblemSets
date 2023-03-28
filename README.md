@@ -1,33 +1,15 @@
-### Entering Virtual Environment (venv)
-Starting from ARE212_Materials
+## Getting Set Up: 
+All package dependencies live in the requrirements.txt file. To utilize this file effectively, follow the instructions below
 
-#### Windows:
-Note the backslashes (not forward slashes) 
-```
-cd venv\Scripts\activate.bat 
-```
 
-#### Mac/Linux (I think this is right but I don't have a Mac to test)
-```
-source venv/bin/activate
-```
-
-### Exiting the venv
-
-```
-deactivate
-```
-
-### Installing required packages 
-After entering the virtual environment and navigating back to main directory (ARE212_Materials): 
-
+1. create your own virtual environment (I use venv, but you can use whatever)
+2. activate your virtual environment
+3. load the requirements.txt file 
 ```
 pip install -r requirements.txt
 ```
-
-### Adding packages 
-If you add a package, be sure to generate a new requirements.txt file, and push your changes. 
-
+4. If you add any package dependencies through a pip install, update the requirements.txt file
 ```
 pip freeze > requirements.txt
 ```
+5. When pushing changes, make sure your virtual environment is included in the .gitignore (notice the only thing in there right now is "venv/", which is the name of my local virtual environment). If your venv is called venv, you're good to go. 
