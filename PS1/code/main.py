@@ -18,6 +18,7 @@ def pt_5(N, k, m):
     ## Generate an Nxk matrix of errors 
     mu = [0]*k
     Sigma = generate_covariance_matrix(k)
+    print(Sigma)
     u = multivariate_normal(mu, Sigma)
 
     ## Generate an Nxm matrix for T
@@ -33,9 +34,10 @@ def pt_5(N, k, m):
     u = u.rvs(N) 
 
     # generate D and X
-    D = np.random.random(size=(m, m)) 
-    X = (T**3)@D 
-
+    # D = np.random.random(size=(m, m)) 
+    # X = (T**3)@D 
+    # for part 6, we want X = T
+    X = T
     print(f"True beta: {beta} \n\n")
 
     y = X@beta + u 
@@ -43,6 +45,14 @@ def pt_5(N, k, m):
     b = np.linalg.lstsq(T.T@X,T.T@y, rcond=None)[0]
     print(f"Estimated b: {b}")
 
+    e = y - X@b
+
+    TXplus = np.linalg.pinv(T.T@X) # Moore-Penrose pseudo-inverse
+
+    # Covariance matrix of b
+    vb = e.var()*TXplus@T.T@T@TXplus.T  # u is known to be homoskedastic
+
+    print(vb)
 
 if __name__ == "__main__":
     pt_5(1000, 3, 2)
