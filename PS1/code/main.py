@@ -65,7 +65,6 @@ if __name__ == "__main__":
     # define kernel 
     S = np.asarray(df['total_value'])
     # goal: build gram from S 
-    
     out = None
     for i in S: 
         y = i - S
