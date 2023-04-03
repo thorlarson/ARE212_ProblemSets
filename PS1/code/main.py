@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.stats import multivariate_normal
 from scipy.linalg import inv, sqrtm
+import pandas as pd
 
 def generate_covariance_matrix(n):
     ## creates a random covariance matrix of dimension n
@@ -50,12 +51,23 @@ def pt_5(N, k, m):
     TXplus = np.linalg.pinv(T.T@X) # Moore-Penrose pseudo-inverse
 
     # Covariance matrix of b
-    vb = e.var()*TXplus@T.T@T@TXplus.T  # u is known to be homoskedastic
+    vb = e.var()*TXplus@T.T@T@TXplus.T 
 
     print(vb)
 
-if __name__ == "__main__":
-    pt_5(1000, 3, 2)
 
+if __name__ == "__main__":
+    # pt_5(1000, 3, 2)
+    df = pd.read_parquet("PS1/data/nss68_total_expenditures.parquet")
     
+    # define kernel 
+    S = np.asarray(df['total_value'])
+    # goal: build gram from S 
     
+    out = None
+    for i in S: 
+        y = i - S
+        if out is None: 
+            out = y
+        out = np.append(out, y) 
+    print(out.shape)

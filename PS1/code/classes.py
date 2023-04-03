@@ -34,6 +34,27 @@ class ConvolveContinuous(iid.rv_continuous):
         return integrate.quad(lambda x: self.y.pdf(z - x) * self.x.pdf(x), -np.inf, np.inf)
 
 
+class KernelDensityEstimator:
+    def __init__(self, X, h, kernel = 'default'):
+        self.kernel = self.k(kernel)
+        self.X = X 
+        self.h = h 
+        self.fhat = self.kernel_estimator(k())
+
+    def k(self, kernel): 
+        if kernel == "default":
+            return lambda u: (np.abs(u) < np.sqrt(3))/(2*np.sqrt(3))
+
+    def kernel_estimator(self):
+        """
+        Use data X to estimate a density, using bandwidth h.
+        """
+        return lambda x: self.kernel((self.X-x)/self.h).mean()/self.h
+
+    def gram(self): 
+        pass
+
+
 if __name__ == "__main__":
     # create discrete random variables
     Omega = (1, 2, 3, 4, 5, 6)
@@ -44,17 +65,18 @@ if __name__ == "__main__":
     Omega = (0, 1)
     Pr = (.5, .5)
     Coin = iid.rv_discrete(values=(Omega, Pr))
-
+    z = ConvolveDiscrete(Coin, Dice1)
     # create continuous random variables
     Normal1 = iid.norm()
     Normal2 = iid.norm()
     
-    z = ConvolveContinuous(Normal1, Normal2) 
-
+    # z = ConvolveContinuous(Normal1, Normal2) 
+    print(z.support)
+    
     # Plot convolved against the standard normal
-    X = np.linspace(-4, 4, 100).tolist()
+    X = np.linspace(0, 10, 100).tolist()
     Y = [z.pdf(x) for x in X]
-    stdY = [Normal1.pdf(x) for x in X]
+    # stdY = [Normal1.pdf(x) for x in X]
     plt.plot(X, Y)
-    plt.plot(X, stdY)
+    # plt.plot(X, stdY)
     plt.show()
