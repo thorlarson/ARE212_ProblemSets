@@ -8,7 +8,7 @@ def generate_covariance_matrix(n):
     A = np.random.random(size=(n, n))  
     return A @ A.T
 
-def pt_5(N, k, m):
+def pt_5_6(N, k, m, question):
     np.random.seed(1234)
     '''
         N: number of samples 
@@ -35,10 +35,12 @@ def pt_5(N, k, m):
     u = u.rvs(N) 
 
     # generate D and X
-    # D = np.random.random(size=(m, m)) 
-    # X = (T**3)@D 
+    if question == "five":
+        D = np.random.random(size=(m, m)) 
+        X = (T**3)@D 
     # for part 6, we want X = T
-    X = T
+    else:
+        X = T
     print(f"True beta: {beta} \n\n")
 
     y = X@beta + u 
@@ -57,7 +59,7 @@ def pt_5(N, k, m):
 
 
 if __name__ == "__main__":
-    # pt_5(1000, 3, 2)
+    # pt_5(1000, 3, 2, "five")
     df = pd.read_parquet("PS1/data/nss68_total_expenditures.parquet")
     
     # define kernel 
