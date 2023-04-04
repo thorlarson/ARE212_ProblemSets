@@ -2,6 +2,7 @@ import numpy as np
 from scipy.stats import multivariate_normal
 from scipy.linalg import inv, sqrtm
 import pandas as pd
+import scipy.integrate as integrate
 
 def generate_covariance_matrix(n):
     ## creates a random covariance matrix of dimension n
@@ -50,3 +51,8 @@ def pt_5_6(N, k, m, question):
     # Covariance matrix of b
     vb = e.var()*TXplus@T.T@T@TXplus.T 
     return
+
+
+def kernel_bias(kernel, density, h): 
+    return lambda x: integrate.quad(lambda u: kernel(u)*density(x + h * u), -np.inf, np.inf)[0] - density(x)
+

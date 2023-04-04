@@ -62,24 +62,6 @@ class ConvolveDiscrete():
         ax[1].set_ylabel("PMF value")
         return fig, ax
 
-# class ConvolveDiscrete(iid.rv_discrete):
-#     def __init__(self, x, y):
-#         self.x = x 
-#         self.y = y
-#         super().__init__()
-
-#     def _cdf(self, z):
-#         F = 0 
-#         for val, prob in zip(self.x.xk, self.x.pk):
-#             F += self.y.cdf(z - val)* prob
-#         return F
-
-#     def _pmf(self, z):
-#         f = 0 
-#         for val, prob in zip(self.x.xk, self.x.pk):
-#             f += self.y.pmf(z - val)* prob
-#         return f
-
 
 class ConvolveContinuous(iid.rv_continuous):
     def __init__(self, x, y):
@@ -111,6 +93,7 @@ class ConvolveContinuous(iid.rv_continuous):
 
         return fig, ax
 
+
 class KernelDensityEstimator:
     def __init__(self, X, h, kernel = 'default'):
         self.ktype = kernel
@@ -118,6 +101,7 @@ class KernelDensityEstimator:
         self.X = X
         self.h = h
         self.fhat = self.kernel_estimator()
+        self.bias = self.biasfn()
 
     def k(self, kernel): 
         if kernel == "default":
@@ -144,8 +128,27 @@ class KernelDensityEstimator:
         ax.set_xlabel("Household non-durable expenditures in INR")
         ax.set_ylabel("Density")
         ax.legend([f"{self.ktype.title()} kernel. h={round(self.h, 1)}","histogram"])
-        # ax.set_title("The histogram and kernel density estimator using Silverman's rule.")
         fig.tight_layout()
         fig.savefig(f"../output/{fname}.png")
         plt.show()
 
+
+#### plotting pmf is finnicky inheriting from rv_discrete. Wrote own class for notebook plots
+# 
+# class ConvolveDiscrete(iid.rv_discrete):
+#     def __init__(self, x, y):
+#         self.x = x 
+#         self.y = y
+#         super().__init__()
+
+#     def _cdf(self, z):
+#         F = 0 
+#         for val, prob in zip(self.x.xk, self.x.pk):
+#             F += self.y.cdf(z - val)* prob
+#         return F
+
+#     def _pmf(self, z):
+#         f = 0 
+#         for val, prob in zip(self.x.xk, self.x.pk):
+#             f += self.y.pmf(z - val)* prob
+#         return f
