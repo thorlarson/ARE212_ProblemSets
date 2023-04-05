@@ -1,5 +1,5 @@
-## Getting Set Up: 
-All package dependencies live in the requrirements.txt file. To utilize this file effectively, follow the instructions below
+## Getting Set Up to Collaborate: 
+All package dependencies live in the requirements.txt file. To utilize this file effectively, follow the instructions below
 
 
 1. create your own virtual environment (I personally prefer venv to conda or other options, but you can use whatever)
