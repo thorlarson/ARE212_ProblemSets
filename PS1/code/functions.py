@@ -46,6 +46,14 @@ def pt_5_6(N, k, m, question):
 
     b = np.linalg.lstsq(T.T@X,T.T@y, rcond=None)[0]
     print(f"Estimated b: \n{b}")
+
+    if question == "six":
+        b_ols = np.ones_like(b)
+        for i in range(y.shape[1]):
+            y_temp = y[:,i]
+            b_temp = np.linalg.lstsq(T.T@X,T.T@y_temp, rcond=None)[0] 
+            b_ols[:,i] = b_temp
+        print(f"Estimated b when solving each equation independently: \n{b_ols}")
     e = y - X@b
     TXplus = np.linalg.pinv(T.T@X) # Moore-Penrose pseudo-inverse
     # Covariance matrix of b
